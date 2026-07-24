@@ -22,7 +22,7 @@ public class SecurityConfiguration  {
 		
 		http.csrf(c->c.disable()).authorizeHttpRequests(auth->
 		
-				auth.requestMatchers("/","/login","/register","/register_user").permitAll()
+				auth.requestMatchers("/","/login","/register","/register_user","/images/**").permitAll()
 				.requestMatchers("/books/**").hasRole("ADMIN")
 				.requestMatchers("/dashboard").hasAnyRole("USER","ADMIN").anyRequest().authenticated()
 				

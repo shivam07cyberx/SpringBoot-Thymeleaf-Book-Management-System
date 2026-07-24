@@ -6,99 +6,6 @@
 
 <style>
 
-
-
-
-
-
-/* ===========================
-   Tablet (768px and below)
-=========================== */
-@media (max-width:768px){
-
-    .container{
-        width:90%;
-        padding:35px 25px;
-    }
-
-    h1{
-        font-size:30px;
-    }
-
-    p{
-        font-size:16px;
-    }
-
-    .btn{
-        font-size:17px;
-        padding:13px;
-    }
-
-}
-
-/* ===========================
-   Mobile (480px and below)
-=========================== */
-@media (max-width:480px){
-
-    body{
-        padding:20px;
-    }
-
-    .container{
-        width:100%;
-        padding:30px 20px;
-        border-radius:12px;
-    }
-
-    h1{
-        font-size:26px;
-    }
-
-    p{
-        font-size:15px;
-        margin-bottom:25px;
-    }
-
-    .btn{
-        font-size:16px;
-        padding:12px;
-        margin:12px 0;
-    }
-
-}
-
-/* ===========================
-   Small Mobile (320px and below)
-=========================== */
-@media (max-width:320px){
-
-    .container{
-        padding:25px 15px;
-    }
-
-    h1{
-        font-size:22px;
-    }
-
-    p{
-        font-size:14px;
-    }
-
-    .btn{
-        font-size:15px;
-        padding:10px;
-    }
-
-}
-
-
-
-
-
-
-
-
 *{
     margin:0;
     padding:0;
@@ -108,28 +15,36 @@
 
 body{
     background:linear-gradient(135deg,#667eea,#764ba2);
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    padding:30px;
 }
 
 .container{
-    width:450px;
+    width:850px;
     background:#fff;
     border-radius:15px;
-    padding:30px;
+    padding:35px;
     box-shadow:0 15px 35px rgba(0,0,0,.25);
 }
 
 .container h2{
     text-align:center;
-    margin-bottom:25px;
+    margin-bottom:30px;
     color:#333;
+    font-size:30px;
+}
+
+.form-row{
+    display:flex;
+    gap:20px;
+    margin-bottom:18px;
 }
 
 .form-group{
-    margin-bottom:18px;
+    flex:1;
 }
 
 label{
@@ -140,7 +55,8 @@ label{
 }
 
 input,
-textarea{
+textarea,
+select{
     width:100%;
     padding:12px;
     border:1px solid #ccc;
@@ -150,7 +66,8 @@ textarea{
 }
 
 input:focus,
-textarea:focus{
+textarea:focus,
+select:focus{
     border-color:#667eea;
     outline:none;
     box-shadow:0 0 8px rgba(102,126,234,.4);
@@ -158,17 +75,23 @@ textarea:focus{
 
 textarea{
     resize:none;
-    height:100px;
+    height:120px;
+}
+
+.full-width{
+    width:100%;
+    margin-bottom:20px;
 }
 
 .btn-group{
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
+    gap:20px;
     margin-top:20px;
 }
 
 button{
-    width:48%;
+    width:180px;
     padding:12px;
     border:none;
     border-radius:8px;
@@ -196,7 +119,7 @@ button{
 }
 
 .back{
-    margin-top:20px;
+    margin-top:25px;
     text-align:center;
 }
 
@@ -209,63 +132,214 @@ button{
 .back a:hover{
     text-decoration:underline;
 }
+
+.message{
+    margin-top:20px;
+    background:#d4edda;
+    color:#155724;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #c3e6cb;
+    text-align:center;
+    font-weight:bold;
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media(max-width:768px){
+
+    .container{
+        width:95%;
+        padding:25px;
+    }
+
+    .form-row{
+        flex-direction:column;
+        gap:0;
+    }
+
+    button{
+        width:100%;
+    }
+
+    .btn-group{
+        flex-direction:column;
+    }
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:480px){
+
+    .container h2{
+        font-size:24px;
+    }
+
+    input,
+    textarea,
+    select{
+        font-size:14px;
+    }
+
+}
+
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
 
-    <h2>📚 Add New Book</h2>
+<h2>📚 Add New Book</h2>
 
-    <form th:action="@{/books/save}" method="post">
+<form th:action="@{/books/save}" method="post">
+
+    <div class="form-row">
 
         <div class="form-group">
             <label>Book Name</label>
-            <input type="text" name="bookname" placeholder="Enter Book Name" required>
+            <input
+                type="text"
+                name="bookname"
+                placeholder="Enter Book Name"
+                required>
         </div>
 
         <div class="form-group">
             <label>Title</label>
-            <input type="text" name="title" placeholder="Enter Book Title" required>
+            <input
+                type="text"
+                name="title"
+                placeholder="Enter Book Title"
+                required>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group">
+            <label>Author</label>
+            <input
+                type="text"
+                name="author"
+                placeholder="Enter Author Name"
+                required>
         </div>
 
         <div class="form-group">
-            <label>Description</label>
-            <textarea name="description"
-                placeholder="Enter Book Description"
-                required></textarea>
+            <label>Category</label>
+
+            <select name="category" required>
+
+                <option value="">Select Category</option>
+                <option>Java</option>
+                <option>Spring Boot</option>
+                <option>Database</option>
+                <option>Python</option>
+                <option>Web Development</option>
+                <option>Machine Learning</option>
+                <option>Networking</option>
+                <option>Other</option>
+
+            </select>
+
         </div>
+
+    </div>
+
+    <div class="form-row">
 
         <div class="form-group">
             <label>Price</label>
-            <input type="number" step="0.01" name="price"
-                placeholder="Enter Price" required>
+            <input
+                type="number"
+                step="0.01"
+                name="price"
+                placeholder="Enter Price"
+                required>
         </div>
 
-        <div class="btn-group">
-            <button class="save" type="submit">💾 Save</button>
-            <button class="reset" type="reset">🔄 Reset</button>
+        <div class="form-group">
+            <label>Total Book Count</label>
+            <input
+                type="number"
+                name="bookCount"
+                placeholder="Total Copies"
+                min="1"
+                required>
         </div>
 
-    </form>
-
-    <div class="back">
-        <a th:href="@{/dashboard}">⬅ Back to Dashboard</a>
     </div>
-<div th:if="${msg}"
-     style="background:#d4edda;
-            color:#155724;
-            padding:12px;
-            margin-bottom:20px;
-            border-radius:8px;
-            border:1px solid #c3e6cb;
-            text-align:center;
-            font-weight:bold;">
 
-    <span th:text="${msg}"></span>
+  <!--   <div class="form-row">
+
+        <div class="form-group">
+            <label>Available Book Count</label>
+            <input
+                type="number"
+                name="availableBookCount"
+                placeholder="Available Copies"
+                min="0"
+                required>
+        </div>
+
+        <div class="form-group">
+        </div> 
+
+    </div>  -->
+
+    <div class="form-group full-width">
+
+        <label>Description</label>
+
+        <textarea
+            name="description"
+            placeholder="Enter Book Description"
+            required></textarea>
+
+    </div>
+
+    <div class="btn-group">
+
+        <button
+            class="save"
+            type="submit">
+            💾 Save Book
+        </button>
+
+        <button
+            class="reset"
+            type="reset">
+            🔄 Reset
+        </button>
+
+    </div>
+
+</form>
+
+<div class="back">
+
+<a th:href="@{/dashboard}">
+⬅ Back to Dashboard
+</a>
 
 </div>
+
+<div
+th:if="${msg}"
+class="message">
+
+<span th:text="${msg}"></span>
+
+</div>
+
 </div>
 
 </body>

@@ -3,397 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <title>Library Books</title>
-
 <style>
-
-.header-right{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.search-form{
-    display:flex;
-    gap:10px;
-}
-
-.search-form input{
-
-    width:260px;
-    padding:12px;
-    border:none;
-    border-radius:8px;
-    outline:none;
-    font-size:15px;
-
-}
-
-.header-right{
-
-    width:100%;
-    flex-direction:column;
-
-}
-
-.search-form{
-
-    width:100%;
-    flex-direction:column;
-
-}
-
-.search-form input{
-
-    width:100%;
-
-}
-
-.search-form button{
-
-    width:100%;
-
-}
-
-.add-btn{
-
-    width:100%;
-    text-align:center;
-
-}
-
-.search-form button{
-
-    padding:12px 20px;
-    border:none;
-    border-radius:8px;
-    background:#2563eb;
-    color:white;
-    cursor:pointer;
-    font-weight:bold;
-    transition:.3s;
-
-}
-
-.search-form button:hover{
-
-    background:#1d4ed8;
-
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Segoe UI,Arial,sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
 body{
-    background:#f4f7fc;
-}
-
-/* Header */
-
-.header{
-    background:#1f2937;
-    color:white;
-    padding:20px 50px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:15px;
-}
-
-.header h1{
-    font-size:28px;
-}
-
-.add-btn{
-
-    text-decoration:none;
-    background:#22c55e;
-    color:white;
-    padding:12px 22px;
-    border-radius:8px;
-    font-weight:bold;
-    transition:.3s;
-
-}
-
-.add-btn:hover{
-
-    background:#16a34a;
-
-}
-
-/* Success Message */
-
-.success{
-
-    width:90%;
-    margin:20px auto;
-    background:#d1fae5;
-    color:#065f46;
-    padding:15px;
-    border-radius:8px;
-    border-left:6px solid #10b981;
-
-}
-
-/* Book Cards */
-
-.container{
-
-    width:90%;
-    margin:30px auto;
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-
-    gap:25px;
-
-}
-
+background:linear-gradient(135deg,#667eea,#764ba2);
+min-height:100vh;padding:30px;color:#222}
+.header{display:flex;justify-content:space-between;align-items:center;gap:20px;
+background:rgba(255,255,255,.15);backdrop-filter:blur(18px);
+padding:20px 30px;border-radius:20px;color:#fff}
+.header-right{display:flex;gap:15px;align-items:center}
+.search-form{display:flex;gap:10px}
+.search-form input{padding:12px 16px;width:280px;border:none;border-radius:10px}
+.search-form button,.add-btn{
+padding:12px 18px;border:none;border-radius:10px;font-weight:bold;
+text-decoration:none;color:#fff;background:#2563eb;cursor:pointer}
+.add-btn{background:#22c55e}
+.success{margin:20px 0;background:#d1fae5;padding:15px;border-radius:10px}
+.container{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:25px;margin-top:25px}
 .card{
-
-    background:white;
-    border-radius:15px;
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
-    padding:22px;
-    transition:.3s;
-
-}
-
-.card:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:0 15px 30px rgba(0,0,0,.2);
-
-}
-
-.book-name{
-
-    font-size:24px;
-    color:#2563eb;
-    margin-bottom:15px;
-
-}
-
-.info{
-
-    margin:12px 0;
-    color:#444;
-    line-height:1.5;
-
-}
-
-.price{
-
-    display:inline-block;
-
-    margin-top:12px;
-
-    background:#2563eb;
-    color:white;
-
-    padding:8px 15px;
-
-    border-radius:20px;
-
-    font-weight:bold;
-
-}
-
-/* Buttons */
-
-.actions{
-
-    margin-top:25px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:12px;
-
-}
-
-.actions a{
-
-    flex:1;
-
-    text-align:center;
-
-    text-decoration:none;
-
-    padding:12px;
-
-    border-radius:8px;
-
-    font-weight:bold;
-
-    color:white;
-
-    transition:.3s;
-
-}
-
-.edit{
-
-    background:#f59e0b;
-
-}
-
-.edit:hover{
-
-    background:#d97706;
-
-}
-
-.delete{
-
-    background:#ef4444;
-
-}
-
-.delete:hover{
-
-    background:#dc2626;
-
-}
-
-/* Footer */
-
-.footer{
-
-    text-align:center;
-
-    margin:40px;
-
-}
-
-.footer a{
-
-    text-decoration:none;
-
-    color:#2563eb;
-
-    font-weight:bold;
-
-}
-
-/* Responsive */
-
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.3);
+border-radius:22px;
+padding:22px;
+box-shadow:0 15px 30px rgba(0,0,0,.2);
+transition:.3s}
+.card:hover{transform:translateY(-8px)}
+.book-name{font-size:26px;color:#fff;margin-bottom:8px}
+.subtitle{color:#eef;margin-bottom:18px}
+.info{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);color:#fff}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.badge{padding:8px 14px;border-radius:20px;color:#fff;font-weight:bold}
+.price{background:#2563eb}
+.total{background:#7c3aed}
+.available{background:#16a34a}
+.desc{background:rgba(255,255,255,.2);padding:15px;border-radius:12px;color:#fff;line-height:1.6;min-height:90px}
+.actions{display:flex;gap:12px;margin-top:20px}
+.actions a{flex:1;text-align:center;padding:12px;border-radius:10px;text-decoration:none;color:#fff;font-weight:bold}
+.edit{background:#f59e0b}
+.delete{background:#ef4444}
+.footer{text-align:center;margin-top:35px}
+.footer a{color:#fff;font-weight:bold;text-decoration:none}
 @media(max-width:768px){
-
-.header{
-
-    flex-direction:column;
-
-    text-align:center;
-
+.header{flex-direction:column}
+.header-right,.search-form{width:100%;flex-direction:column}
+.search-form input,.search-form button,.add-btn{width:100%}
 }
-
-.header h1{
-
-    font-size:24px;
-
-}
-
-.add-btn{
-
-    width:100%;
-
-    text-align:center;
-
-}
-
-.container{
-
-    width:95%;
-
-}
-
-.actions{
-
-    flex-direction:column;
-
-}
-
-}
-
 </style>
-
 </head>
-
 <body>
 
 <div class="header">
-
-    <h1>📚 Library Books</h1>
-
-    <div class="header-right">
-
-        <form th:action="@{/books/search}" method="get" class="search-form">
-
-            <input type="text"
-                   name="keyword"
-                   placeholder="🔍 Search by Book Name..."
-                   th:value="${keyword}">
-
-            <button type="submit">Search</button>
-
-        </form>
-
-        <a th:href="@{/books/add-form}" class="add-btn">
-            ➕ Add Book
-        </a>
-
-    </div>
-
+<h1>📚 Library Books</h1>
+<div class="header-right">
+<form th:action="@{/books/search}" method="get" class="search-form">
+<input type="text" name="keyword" th:value="${keyword}" placeholder="🔍 Search by Book Name">
+<button type="submit">Search</button>
+</form>
+<a class="add-btn" th:href="@{/books/add-form}">➕ Add Book</a>
+</div>
 </div>
 
 <div class="success" th:if="${msg}">
-    <span th:text="${msg}"></span>
+<span th:text="${msg}"></span>
 </div>
 
 <div class="container">
 
-<div class="card" th:each="book:${books}">
+<div class="card" th:each="book : ${books}">
 
-<h2 class="book-name" th:text="${book.bookname}"></h2>
+<h2 class="book-name" th:text="${book.bookname}">Book Name</h2>
+<div class="subtitle" th:text="${book.title}">Title</div>
 
-<div class="info">
-<b>Title :</b>
-<span th:text="${book.title}"></span>
+<div class="info"><strong>👤 Author</strong><span th:text="${book.author}"></span></div>
+<div class="info"><strong>🏷 Category</strong><span th:text="${book.category}"></span></div>
+
+<div class="badges">
+<span class="badge price">💰 ₹<span th:text="${book.price}"></span></span>
+<span class="badge total">📦 Total: <span th:text="${book.bookCount}"></span></span>
+<span class="badge available">✅ Available: <span th:text="${book.availableBookCount}"></span></span>
 </div>
 
-<div class="info">
-<b>Description :</b>
+<div class="desc">
+<strong>Description</strong><br><br>
 <span th:text="${book.description}"></span>
 </div>
 
-<div class="price">
-₹ <span th:text="${book.price}"></span>
-</div>
-
 <div class="actions">
-
-<a class="edit"
-th:href="@{/books/edit/{id}(id=${book.bookId})}">
-✏ Edit
-</a>
-
+<a class="edit" th:href="@{/books/edit/{id}(id=${book.bookId})}">✏ Edit</a>
 <a class="delete"
 th:href="@{/books/delete/{id}(id=${book.bookId})}"
-onclick="return confirm('Delete this book?')">
-🗑 Delete
-</a>
-
+onclick="return confirm('Delete this book?')">🗑 Delete</a>
 </div>
 
 </div>
@@ -401,11 +101,7 @@ onclick="return confirm('Delete this book?')">
 </div>
 
 <div class="footer">
-
-<a th:href="@{/dashboard}">
-⬅ Back to Dashboard
-</a>
-
+<a th:href="@{/dashboard}">⬅ Back to Dashboard</a>
 </div>
 
 </body>

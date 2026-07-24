@@ -1,168 +1,337 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
 
-    <style>
-    
-    
-    /* ===========================
-   Tablet (768px and below)
-=========================== */
-@media (max-width:768px){
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    .container{
-        width:90%;
-        padding:35px 25px;
-    }
+<title>Library Management System</title>
 
-    h1{
-        font-size:30px;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    p{
-        font-size:16px;
-    }
+<style>
 
-    .btn{
-        font-size:17px;
-        padding:13px;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:url('/images/background.jpg') center center/cover no-repeat;
+min-height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+position:relative;
 
 }
 
-/* ===========================
-   Mobile (480px and below)
-=========================== */
-@media (max-width:480px){
+body::before{
 
-    body{
-        padding:20px;
-    }
-
-    .container{
-        width:100%;
-        padding:30px 20px;
-        border-radius:12px;
-    }
-
-    h1{
-        font-size:26px;
-    }
-
-    p{
-        font-size:15px;
-        margin-bottom:25px;
-    }
-
-    .btn{
-        font-size:16px;
-        padding:12px;
-        margin:12px 0;
-    }
+content:"";
+position:absolute;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(5,20,45,.72);
 
 }
 
-/* ===========================
-   Small Mobile (320px and below)
-=========================== */
-@media (max-width:320px){
+.container{
 
-    .container{
-        padding:25px 15px;
-    }
+position:relative;
+z-index:10;
 
-    h1{
-        font-size:22px;
-    }
+width:90%;
+max-width:1200px;
 
-    p{
-        font-size:14px;
-    }
+display:flex;
+align-items:center;
+justify-content:space-between;
 
-    .btn{
-        font-size:15px;
-        padding:10px;
-    }
+gap:60px;
 
 }
-    
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
-        }
 
-        body{
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background:linear-gradient(135deg,#4facfe,#00f2fe);
-        }
+.left{
 
-        .container{
-            width:420px;
-            background:#fff;
-            padding:40px;
-            border-radius:15px;
-            text-align:center;
-            box-shadow:0 10px 30px rgba(0,0,0,.2);
-        }
+flex:1;
 
-        h1{
-            color:#333;
-            margin-bottom:10px;
-        }
+}
 
-        p{
-            color:#666;
-            margin-bottom:30px;
-        }
+.left img{
 
-        .btn{
-            display:block;
-            width:100%;
-            padding:14px;
-            margin:15px 0;
-            text-decoration:none;
-            font-size:18px;
-            color:white;
-            border-radius:8px;
-            transition:.3s;
-        }
+width:100%;
+max-width:500px;
 
-        .login{
-            background:#007bff;
-        }
+animation:float 4s ease-in-out infinite;
 
-        .login:hover{
-            background:#0056b3;
-        }
+}
 
-        .register{
-            background:#28a745;
-        }
+@keyframes float{
 
-        .register:hover{
-            background:#1f7d34;
-        }
-    </style>
+50%{
+transform:translateY(-15px);
+}
+
+}
+
+.right{
+
+flex:1;
+
+background:rgba(255,255,255,.10);
+
+backdrop-filter:blur(15px);
+
+padding:50px;
+
+border-radius:20px;
+
+color:white;
+
+box-shadow:0 20px 50px rgba(0,0,0,.45);
+
+}
+
+h1{
+
+font-size:48px;
+margin-bottom:20px;
+
+}
+
+h2{
+
+font-weight:400;
+margin-bottom:25px;
+color:#ddd;
+
+}
+
+p{
+
+line-height:30px;
+margin-bottom:35px;
+
+}
+
+.buttons{
+
+display:flex;
+gap:20px;
+
+}
+
+.btn{
+
+padding:15px 35px;
+
+border-radius:8px;
+
+text-decoration:none;
+
+font-size:18px;
+
+font-weight:600;
+
+transition:.4s;
+
+}
+
+.login{
+
+background:#2563eb;
+color:white;
+
+}
+
+.login:hover{
+
+background:#1d4ed8;
+transform:translateY(-5px);
+
+}
+
+.register{
+
+background:#f97316;
+color:white;
+
+}
+
+.register:hover{
+
+background:#ea580c;
+transform:translateY(-5px);
+
+}
+
+.features{
+
+margin-top:45px;
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:20px;
+
+}
+
+.card{
+
+background:rgba(255,255,255,.08);
+
+padding:18px;
+
+border-radius:12px;
+
+}
+
+.card h3{
+
+margin-bottom:10px;
+
+}
+
+.card p{
+
+margin:0;
+font-size:14px;
+
+line-height:24px;
+
+}
+
+@media(max-width:900px){
+
+.container{
+
+flex-direction:column;
+
+}
+
+.left img{
+
+max-width:320px;
+
+}
+
+.right{
+
+padding:35px;
+
+}
+
+h1{
+
+font-size:34px;
+
+}
+
+.features{
+
+grid-template-columns:1fr;
+
+}
+
+.buttons{
+
+flex-direction:column;
+
+}
+
+.btn{
+
+text-align:center;
+
+}
+
+}
+
+</style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>Welcome</h1>
+<div class="left">
 
-    <p> SHIVAM's Spring Boot Security Authentication System</p>
+<img th:src="@{/images/hero.png}" alt="Library">
 
-    <a th:href="@{/login}" class="btn login">Login</a>
+</div>
 
-    <a th:href="@{/register}" class="btn register">Register</a>
+<div class="right">
+
+<h1>📚 Library Management System</h1>
+
+<h2>Enterprise Library Portal</h2>
+
+<p>
+
+Manage Books, Users and Library Operations using
+Spring Boot, Spring Security, Thymeleaf, Hibernate and MySQL.
+
+</p>
+
+<div class="buttons">
+
+<a th:href="@{/login}" class="btn login">
+Login
+</a>
+
+<a th:href="@{/register}" class="btn register">
+Register
+</a>
+
+</div>
+
+<div class="features">
+
+<div class="card">
+
+<h3>🔐 Secure Authentication</h3>
+
+<p>Spring Security with Role Based Access Control.</p>
+
+</div>
+
+<div class="card">
+
+<h3>📚 Book Management</h3>
+
+<p>Add, Update, Delete and Search Books.</p>
+
+</div>
+
+<div class="card">
+
+<h3>👤 User & Admin Roles</h3>
+
+<p>Separate dashboards for ADMIN and USER.</p>
+
+</div>
+
+<div class="card">
+
+<h3>📱 Responsive UI</h3>
+
+<p>Works on Desktop, Tablet and Mobile.</p>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 
