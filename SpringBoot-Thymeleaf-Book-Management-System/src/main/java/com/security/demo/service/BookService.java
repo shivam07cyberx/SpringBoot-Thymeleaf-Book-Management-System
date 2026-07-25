@@ -16,6 +16,8 @@ public class BookService {
 	
 	public Book addBook(Book book) {
 		
+
+		
 		
 		return br.save(book);
 	}
@@ -37,5 +39,16 @@ public class BookService {
 
 	}
 	
+	
+	public List<Book> getBooks(){
+		
+		return br.findAll();
+	}
+	
 
+	public Book findBookById(Long id) {
+		
+		return br.findById(id).get();
+	}
+	
 }

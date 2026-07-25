@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>User Details</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+body{background:#eef2f7;padding:30px}
+.container{max-width:1350px;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.btn{padding:10px 18px;border:none;border-radius:6px;color:#fff;text-decoration:none;font-weight:600;cursor:pointer}
+.back{background:#2563eb}.edit{background:#0ea5e9}.delete{background:#dc2626}.fine{background:#f59e0b}.return{background:#16a34a}
+button:disabled{background:#9ca3af;cursor:not-allowed}
+.profile{background:#fff;border-radius:14px;padding:25px;display:grid;grid-template-columns:170px 1fr;gap:25px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.avatar{width:150px;height:150px;border-radius:50%;background:#2563eb;color:#fff;font-size:60px;display:flex;align-items:center;justify-content:center}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px}
+.stats{display:flex;gap:15px;flex-wrap:wrap;margin:20px 0}
+.box{padding:14px 22px;border-radius:10px;color:#fff;font-weight:bold}
+.blue{background:#2563eb}.green{background:#16a34a}.red{background:#dc2626}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:20px;margin-top:30px}
+.card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 3px 12px rgba(0,0,0,.1);border-left:6px solid #2563eb}
+.card h3{color:#2563eb;margin-bottom:10px}
+.row{margin:8px 0}
+.badgeBorrow{color:#dc2626;font-weight:bold}
+.badgeReturn{color:#16a34a;font-weight:bold}
+hr{margin:15px 0;border:none;border-top:1px solid #ddd}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="top">
+<h1>User Details</h1>
+<a th:href="@{/users}" class="btn back">← Back</a>
+</div>
+
+<div class="profile">
+
+<div class="avatar">👤</div>
+
+<div>
+<h2 th:text="${user.username}">Username</h2>
+
+<div class="grid">
+<div><b>User ID :</b> <span th:text="${user.id}">1</span></div>
+<div><b>Mobile :</b> <span th:text="${user.mobile}">9999999999</span></div>
+<div><b>Role :</b> <span th:text="${user.role}">USER</span></div>
+<div><b>Total Borrowed :</b> <span th:text="${borrowedBooks.size()}">0</span></div>
+</div>
+
+<div class="stats">
+<div class="box blue">
+Total Fine<br>
+₹ <span th:text="${totalFine}">0</span>
+</div>
+
+<div class="box green">
+Borrowed Books<br>
+<span th:text="${borrowedBooks.size()}">0</span>
+</div>
+
+<div class="box red" th:if="${totalFine>0}">
+Pending Fine
+</div>
+</div>
+
+<div class="actions">
+<a class="btn edit" th:href="@{/admin/user/edit/{id}(id=${user.id})}">Edit User</a>
+
+<a class="btn delete"
+   th:href="@{/admin/user/delete/{id}(id=${user.id})}"
+   onclick="return confirm('Delete this user?')">
+Delete User
+</a>
+
+<form th:action="@{/admin/user/clearFine/{id}(id=${user.id})}" method="post">
+<button class="btn fine" th:disabled="${totalFine==0}">
+Clear All Fine
+</button>
+</form>
+
+</div>
+
+</div>
+</div>
+
+<h2 style="margin-top:35px">Borrowed Books</h2>
+
+<div class="cards">
+
+<div class="card" th:each="issue : ${borrowedBooks}">
+
+<h3 th:text="${issue.book.title}">Book Title</h3>
+
+<div class="row"><b>Book ID :</b> <span th:text="${issue.book.bookId}">1</span></div>
+<div class="row"><b>Category :</b> <span th:text="${issue.book.category}">Programming</span></div>
+<div class="row"><b>Borrow Date :</b> <span th:text="${issue.borrowDate}">2026-07-20</span></div>
+<div class="row"><b>Due Date :</b> <span th:text="${issue.dueDate}">2026-07-30</span></div>
+
+<div class="row">
+<b>Return Date :</b>
+<span th:text="${issue.returnDate!=null?issue.returnDate:'Not Returned'}"></span>
+</div>
+
+<div class="row">
+<b>Fine :</b>
+₹ <span th:text="${issue.fine==null?0:issue.fine}">0</span>
+</div>
+
+<div class="row">
+<b>Status :</b>
+
+<span class="badgeBorrow" th:if="${issue.returnDate==null}">
+Borrowed
+</span>
+
+<span class="badgeReturn" th:if="${issue.returnDate!=null}">
+Returned
+</span>
+
+</div>
+
+<hr>
+
+<form th:action="@{/admin/return/{id}(id=${issue.borrowId})}" method="post">
+
+<button class="btn return"
+th:disabled="${issue.returnDate!=null}">
+Return Book
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+</body>
+</html>

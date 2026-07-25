@@ -44,5 +44,18 @@ public class UserService {
 	
 	
 	
+	public User getById(Long id) {
+		
+		
+		return ur.findById(id).get();
+	}
+	
+	
+	public User  getByUserName(String name) {
+		
+		
+		return ur.findByUsername(name).get();
+	}
+	
 
 }

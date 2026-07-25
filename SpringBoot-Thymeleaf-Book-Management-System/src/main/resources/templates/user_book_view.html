@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>User Book Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Arial,sans-serif;
+}
+
+body{
+    background:#eef4fb;
+    color:#1f2937;
+}
+
+/* Header */
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    padding:20px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.header h1{
+    font-size:30px;
+}
+
+.container{
+    width:95%;
+    max-width:1450px;
+    margin:30px auto;
+}
+
+/* Cards */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+.card h2{
+    color:#6b7280;
+    font-size:16px;
+}
+
+.card p{
+    margin-top:10px;
+    color:#2563eb;
+    font-size:35px;
+    font-weight:bold;
+}
+
+/* Search */
+
+.toolbar{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    display:flex;
+    gap:15px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+input{
+    flex:1;
+    min-width:250px;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+select{
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+button,.btn{
+    padding:12px 18px;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search{
+    background:#2563eb;
+    color:white;
+}
+
+.reset{
+    background:#6b7280;
+    color:white;
+    text-decoration:none;
+}
+
+/* Table */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+th{
+    background:#2563eb;
+    color:white;
+    padding:15px;
+}
+
+td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover{
+    background:#f7fbff;
+}
+
+/* Badge */
+
+.badge{
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.available{
+    background:#16a34a;
+}
+
+.out{
+    background:#dc2626;
+}
+
+/* Button */
+
+.issue{
+    background:#2563eb;
+    color:white;
+}
+
+.issue:hover{
+    background:#1d4ed8;
+}
+
+.issue:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.footer{
+    margin-top:30px;
+    text-align:center;
+    color:#777;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="header">
+
+    <h1>📚 Library Dashboard</h1>
+
+    <div>
+        Welcome,
+        <b th:text="${user.username}">User</b>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <!-- Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>Total Books</h2>
+            <p th:text="${totalBooks}">120</p>
+        </div>
+
+        <div class="card">
+            <h2>Available Books</h2>
+            <p th:text="${availableBooks}">100</p>
+        </div>
+
+        <div class="card">
+            <h2>My Borrowed</h2>
+            <p th:text="${myBooks}">5</p>
+        </div>
+
+        <div class="card">
+            <h2>Categories</h2>
+            <p th:text="${categories}">15</p>
+        </div>
+
+    </div>
+
+    <!-- Search -->
+
+    <form class="toolbar"
+          th:action="@{/books/view_books}"
+          method="get">
+
+        <input
+            type="text"
+            name="keyword"
+            placeholder="Search by book, author, category..."
+            th:value="${keyword}">
+
+        <select name="category">
+
+            <option value="">All Categories</option>
+
+            <option
+                th:each="c:${categoryList}"
+                th:value="${c}"
+                th:text="${c}">
+            </option>
+
+        </select>
+
+        <button class="search">
+            Search
+        </button>
+
+        <a class="btn reset"
+           th:href="@{/books/view_books}">
+            Reset
+        </a>
+
+    </form>
+
+    <!-- Table -->
+
+    <table>
+
+        <thead>
+
+        <tr>
+
+            <th>ID</th>
+            <th>Book Name</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Available</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="book : ${books}">
+
+            <td th:text="${book.bookId}"></td>
+
+            <td th:text="${book.bookname}"></td>
+
+            <td th:text="${book.title}"></td>
+
+            <td th:text="${book.author}"></td>
+
+            <td th:text="${book.category}"></td>
+
+            <td th:text="${book.price}"></td>
+
+            <td th:text="${book.bookCount}"></td>
+
+            <td th:text="${book.availableBookCount}"></td>
+
+            <!-- Status -->
+
+            <td>
+
+                <span class="badge available"
+                      th:if="${book.availableBookCount > 0}">
+                    Available
+                </span>
+
+                <span class="badge out"
+                      th:if="${book.availableBookCount == 0}">
+                    Out Of Stock
+                </span>
+
+            </td>
+
+            <!-- Button -->
+
+            <td>
+
+  <form th:action="@{/user/issue/{bookId}/{userId}(bookId=${book.bookId},userId=${user.id})}"
+      method="post">
+
+    <button class="issue"
+            th:disabled="${book.availableBookCount == 0}">
+        Issue Book
+    </button>
+
+</form>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+    <div class="footer">
+
+        Library Management System © 2026
+
+    </div>
+
+</div>
+
+</body>
+</html>

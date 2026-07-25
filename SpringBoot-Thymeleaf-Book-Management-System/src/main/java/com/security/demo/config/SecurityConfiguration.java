@@ -23,8 +23,8 @@ public class SecurityConfiguration  {
 		http.csrf(c->c.disable()).authorizeHttpRequests(auth->
 		
 				auth.requestMatchers("/","/login","/register","/register_user","/images/**").permitAll()
-				.requestMatchers("/books/**").hasRole("ADMIN")
-				.requestMatchers("/dashboard").hasAnyRole("USER","ADMIN").anyRequest().authenticated()
+				.requestMatchers("/users/**","/admin/user/**").hasRole("ADMIN")
+				.requestMatchers("/dashboard","/books/**").hasAnyRole("USER","ADMIN").anyRequest().authenticated()
 				
 				
 				).formLogin(form->form.loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/dashboard").permitAll());
