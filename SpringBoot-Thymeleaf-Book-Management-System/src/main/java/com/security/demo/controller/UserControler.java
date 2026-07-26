@@ -91,6 +91,10 @@ System.out.println(user);
 	    List<Book> books= bs.viewAllBook();
 		model.addAttribute("totalBooks", books.size());
 		
+		model.addAttribute("borrowedBooks", br.showBorrow().size());
+
+		model.addAttribute("user_borrowedBooks", ur.getByUserName(user.getUsername()).getBorrows().size());
+
 		List<User> users=ur.getUsers();
 		
 		model.addAttribute("user", ur.getByUserName(user.getUsername()));
@@ -150,6 +154,13 @@ System.out.println(user);
 		Book book=bs.findBookById(bookId);
 		User user=ur.getById(id);
 		
+		
+		
+		
+		
+		
+		
+		
 		Borrow issuedBook =new Borrow();
 		issuedBook.setBook(book);
 		issuedBook.setUser(user);
@@ -162,11 +173,43 @@ System.out.println(user);
 		issuedBook.setFine(0.0);
 		
 		
+		
+		
+		
+		
+		
 		br.add(issuedBook);
+		
+		
+		
+		
+	book.setAvailableBookCount(book.getAvailableBookCount()-1);
+		
+		bs.updateBookCount(book);
 		
 		return "redirect:/books/view_books?id="+user.getId();
 		
 		
+		
+	}
+	
+	
+	@GetMapping("/user/my-books")
+	public String viewBorrowedBooks(@RequestParam Long id, Model model) {
+		
+	    User user = ur.getById(id);
+
+	    List<Borrow> borrowedBooks = user.getBorrows();
+
+	    double totalFine = borrowedBooks.stream()
+	            .mapToDouble(Borrow::getFine)
+	            .sum();
+
+	    model.addAttribute("user", user);
+	    model.addAttribute("borrowedBooks", borrowedBooks);
+	    model.addAttribute("totalBorrowedBooks", borrowedBooks.size());
+	    model.addAttribute("totalFine", totalFine);
+		return "my_borrowed_books";
 		
 	}
 	

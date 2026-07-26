@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
@@ -66,8 +66,8 @@ body{background:#0f172a;color:#fff}
 
 <div class="actions">
 
-<!-- <a class="card" th:href="@{/books/view_books?id=user.id}">
- --><a class="card" th:href="@{/books/view_books(id=${user.id})}">
+<a class="card" th:href="@{/books/view_books?id=user.id}">
+<a class="card" th:href="@{/books/view_books(id=${user.id})}">
 
 <div class="icon">📖</div>
 <h3>Show Books</h3>
@@ -108,6 +108,155 @@ body{background:#0f172a;color:#fff}
 
 </div>
 
+</div>
+
+<div class="footer">
+© 2026 Library Management System
+</div>
+
+</body>
+</html>
+ -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+body{background:#0f172a;color:#fff}
+.header{background:#1e293b;padding:22px 40px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.container{max-width:1250px;margin:auto;padding:30px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:35px}
+.stat{background:#1e3a8a;padding:25px;border-radius:16px;text-align:center;transition:.3s}
+.stat:hover{transform:translateY(-6px)}
+.stat h2{font-size:40px;margin-bottom:8px}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
+.card,.logout{display:block;text-decoration:none;color:#fff;background:#1e293b;border-radius:18px;padding:35px;text-align:center;transition:.3s;box-shadow:0 8px 20px rgba(0,0,0,.25);border:none;width:100%;cursor:pointer}
+.card:hover,.logout:hover{background:#2563eb;transform:translateY(-8px)}
+.icon{font-size:54px}
+.card h3,.logout h3{margin:15px 0 10px}
+.card p,.logout p{color:#d6d6d6}
+.footer{text-align:center;color:#94a3b8;padding:35px}
+@media(max-width:768px){.header{flex-direction:column;gap:10px;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="header">
+<div>
+<h1>📚 Library Management System</h1>
+<p>Welcome, <strong sec:authentication="name">User</strong></p>
+</div>
+
+<div>
+<span sec:authorize="hasRole('ADMIN')">Role : ADMIN</span>
+<span sec:authorize="hasRole('USER')">Role : USER</span>
+</div>
+</div>
+
+<div class="container">
+
+<div class="stats">
+<div class="stat">
+<h2 th:text="${totalBooks}">0</h2>
+<p>Total Books</p>
+</div>
+
+<div class="stat" sec:authorize="hasRole('ADMIN')">
+<h2 th:text="${totalUsers}">0</h2>
+<p>Total Users</p>
+</div>
+
+<div class="stat" sec:authorize="hasRole('ADMIN')">
+<h2 th:text="${borrowedBooks}">0</h2>
+<p>Borrowed Books</p>
+</div>
+
+<div class="stat" sec:authorize="hasRole('USER')">
+    <h2 th:text="${user_borrowedBooks}">0</h2>
+    <p>My Borrowed Books</p>
+</div>
+
+<div class="stat">
+<h2 th:text="${availableBooks}">0</h2>
+<p>Available Books</p>
+</div>
+</div>
+
+<div class="actions">
+
+<a class="card" th:href="@{/books/view_books(id=${user.id})}"  sec:authorize="hasRole('USER')">
+<div class="icon">📖</div>
+<h3>Browse Books</h3>
+<p>Browse all available books.</p>
+</a>
+
+ <a class="card" th:href="@{/books/view}" sec:authorize="hasRole('ADMIN')">
+<div class="icon">📖</div>
+<h3>Browse Books</h3>
+<p>Browse all available books.</p>
+</a> 
+
+<a class="card" th:href="@{/books/add-form}" sec:authorize="hasRole('ADMIN')">
+<div class="icon">➕</div>
+<h3>Add Book</h3>
+<p>Add a new book.</p>
+</a>
+<!-- 
+<a class="card" th:href="@{/borrowed-books}" sec:authorize="hasRole('ADMIN')">
+<div class="icon">📚</div>
+<h3>Borrowed Books</h3>
+<p>Manage all borrowed books.</p>
+</a> -->
+
+<a class="card" th:href="@{/users}" sec:authorize="hasRole('ADMIN')">
+<div class="icon">👥</div>
+<h3>Show Users</h3>
+<p>View registered users.</p>
+</a>
+
+<a class="card" th:href="@{/admin/profile}" sec:authorize="hasRole('ADMIN')">
+<div class="icon">⚙️</div>
+<h3>Admin Settings</h3>
+<p>Manage administrator profile.</p>
+</a>
+
+<a class="card" th:href="@{/user/my-books(id=${user.id})}" sec:authorize="hasRole('USER')">
+<div class="icon">📋</div>
+<h3>My Borrowed Books</h3>
+<p>View your issued books and fine details.</p>
+</a>
+
+<form th:action="@{/logout}" method="post">
+<button class="logout">
+<div class="icon">🚪</div>
+<h3>Logout</h3>
+<p>Securely sign out.</p>
+</button>
+</form>
+
+</div>
 </div>
 
 <div class="footer">

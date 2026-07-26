@@ -1,443 +1,93 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Library Books</title>
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI,Arial,sans-serif;
-}
-
-body{
-background:linear-gradient(135deg,#667eea,#764ba2);
-min-height:100vh;
-padding:30px;
-}
-
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-background:rgba(255,255,255,.15);
-backdrop-filter:blur(18px);
-padding:20px 30px;
-border-radius:20px;
-color:white;
-box-shadow:0 8px 25px rgba(0,0,0,.2);
-}
-
-.header-right{
-display:flex;
-gap:15px;
-align-items:center;
-}
-
-.search-form{
-display:flex;
-gap:10px;
-}
-
-.search-form input{
-width:280px;
-padding:12px;
-border:none;
-border-radius:10px;
-outline:none;
-}
-
-.search-form button{
-padding:12px 18px;
-border:none;
-border-radius:10px;
-background:#2563eb;
-color:white;
-cursor:pointer;
-font-weight:bold;
-}
-
-.add-btn{
-text-decoration:none;
-padding:12px 18px;
-background:#16a34a;
-color:white;
-border-radius:10px;
-font-weight:bold;
-}
-
-.success{
-margin-top:20px;
-background:#d1fae5;
-padding:15px;
-border-radius:10px;
-color:#065f46;
-font-weight:bold;
-}
-
-.container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
-gap:25px;
-margin-top:30px;
-}
-
-.card{
-
-background:rgba(255,255,255,.18);
-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.25);
-border-radius:20px;
-padding:25px;
-box-shadow:0 12px 30px rgba(0,0,0,.25);
-transition:.35s;
-
-}
-
-.card:hover{
-transform:translateY(-8px);
-}
-
-.book-name{
-font-size:28px;
-color:white;
-margin-bottom:8px;
-}
-
-.subtitle{
-color:#f1f5f9;
-margin-bottom:18px;
-font-size:18px;
-}
-
-.info{
-display:flex;
-justify-content:space-between;
-padding:12px 0;
-border-bottom:1px solid rgba(255,255,255,.25);
-color:white;
-}
-
-.badges{
-
-display:flex;
-justify-content:space-between;
-gap:15px;
-margin:20px 0;
-
-}
-
-.badge{
-
-flex:1;
-padding:14px;
-border-radius:12px;
-text-align:center;
-font-weight:bold;
-color:white;
-
-}
-
-.total{
-background:#7c3aed;
-}
-
-.available{
-background:#16a34a;
-}
-
-.status{
-
-margin-bottom:18px;
-padding:14px;
-text-align:center;
-font-size:18px;
-font-weight:bold;
-border-radius:12px;
-
-}
-
-.available-status{
-
-background:#d1fae5;
-color:#065f46;
-
-}
-
-.not-available-status{
-
-background:#fee2e2;
-color:#991b1b;
-
-}
-
-.desc{
-
-background:rgba(255,255,255,.18);
-padding:15px;
-border-radius:12px;
-color:white;
-line-height:1.7;
-min-height:100px;
-
-}
-
-.actions{
-
-display:flex;
-gap:12px;
-margin-top:20px;
-
-}
-
-.actions a{
-
-flex:1;
-text-align:center;
-padding:12px;
-border-radius:10px;
-text-decoration:none;
-color:white;
-font-weight:bold;
-
-}
-
-.edit{
-
-background:#f59e0b;
-
-}
-
-.delete{
-
-background:#ef4444;
-
-}
-
-.footer{
-
-margin-top:35px;
-text-align:center;
-
-}
-
-.footer a{
-
-text-decoration:none;
-font-weight:bold;
-color:white;
-
-}
-
-@media(max-width:768px){
-
-.header{
-
-flex-direction:column;
-
-}
-
-.header-right{
-
-width:100%;
-flex-direction:column;
-
-}
-
-.search-form{
-
-width:100%;
-flex-direction:column;
-
-}
-
-.search-form input,
-.search-form button,
-.add-btn{
-
-width:100%;
-
-}
-
-.badges{
-
-flex-direction:column;
-
-}
-
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+body{background:#f1f5f9;color:#1e293b}
+.header{max-width:1300px;margin:30px auto;background:#fff;padding:22px 30px;border-radius:16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.header h1{color:#2563eb}
+.header-right{display:flex;gap:15px;align-items:center}
+.search-form{display:flex;gap:10px}
+.search-form input{padding:12px 14px;width:280px;border:1px solid #cbd5e1;border-radius:10px}
+.search-form button,.add-btn{padding:12px 18px;border:none;border-radius:10px;background:#2563eb;color:#fff;font-weight:600;text-decoration:none;cursor:pointer}
+.add-btn{background:#16a34a}
+.success{max-width:1300px;margin:20px auto;background:#dcfce7;color:#166534;padding:15px;border-radius:12px}
+.container{max-width:1300px;margin:25px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:24px}
+.card{background:#fff;border-radius:18px;padding:24px;box-shadow:0 8px 22px rgba(0,0,0,.08);border-top:5px solid #2563eb;transition:.25s}
+.card:hover{transform:translateY(-6px)}
+.book-name{font-size:26px;color:#0f172a}
+.subtitle{color:#64748b;margin:8px 0 18px}
+.info{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e2e8f0}
+.badges{display:flex;gap:15px;margin:20px 0}
+.badge{flex:1;text-align:center;padding:15px;border-radius:12px}
+.total{background:#eff6ff;color:#1d4ed8}
+.available{background:#ecfdf5;color:#15803d}
+.badge h2{margin-top:8px}
+.status{text-align:center;padding:12px;border-radius:10px;font-weight:700;margin-bottom:18px}
+.available-status{background:#dcfce7;color:#166534}
+.not-available-status{background:#fee2e2;color:#b91c1c}
+.desc{background:#f8fafc;border-radius:10px;padding:16px;color:#475569;min-height:110px}
+.actions{display:flex;gap:12px;margin-top:20px}
+.actions a{flex:1;text-align:center;padding:12px;border-radius:10px;text-decoration:none;color:#fff;font-weight:bold}
+.edit{background:#f59e0b}
+.delete{background:#ef4444}
+.footer{text-align:center;margin:35px}
+.footer a{text-decoration:none;background:#2563eb;color:#fff;padding:12px 22px;border-radius:10px}
+@media(max-width:768px){.header{flex-direction:column;align-items:stretch}.header-right,.search-form{flex-direction:column}.search-form input,.search-form button,.add-btn{width:100%}}
 </style>
-
 </head>
-
 <body>
 
 <div class="header">
-
 <h1>📚 Library Books</h1>
-
 <div class="header-right">
-
-<form
-th:action="@{/books/search}"
-method="get"
-class="search-form">
-
-<input
-type="text"
-name="keyword"
-th:value="${keyword}"
-placeholder="Search Book Name">
-
-<button type="submit">
-
-🔍 Search
-
-</button>
-
+<form th:action="@{/books/search}" method="get" class="search-form">
+<input type="text" name="keyword" th:value="${keyword}" placeholder="Search book...">
+<button type="submit">🔍 Search</button>
 </form>
-
-<a
-class="add-btn"
-th:href="@{/books/add-form}">
-
-➕ Add Book
-
-</a>
-
+<a class="add-btn" th:href="@{/books/add-form}">➕ Add Book</a>
+</div>
 </div>
 
-</div>
-
-<div
-class="success"
-th:if="${msg}">
-
+<div class="success" th:if="${msg}">
 <span th:text="${msg}"></span>
-
 </div>
 
 <div class="container">
 
-<div
-class="card"
-th:each="book : ${books}">
+<div class="card" th:each="book:${books}">
+<h2 class="book-name" th:text="${book.bookname}">Book</h2>
+<div class="subtitle" th:text="${book.title}">Title</div>
 
-<h2
-class="book-name"
-th:text="${book.bookname}">
-Book Name
-</h2>
-
-<div
-class="subtitle"
-th:text="${book.title}">
-Title
-</div>
-
-<div class="info">
-
-<strong>👤 Author</strong>
-
-<span
-th:text="${book.author}">
-</span>
-
-</div>
-
-<div class="info">
-
-<strong>🏷 Category</strong>
-
-<span
-th:text="${book.category}">
-</span>
-
-</div>
+<div class="info"><strong>👤 Author</strong><span th:text="${book.author}"></span></div>
+<div class="info"><strong>🏷 Category</strong><span th:text="${book.category}"></span></div>
 
 <div class="badges">
-
 <div class="badge total">
-
-📚<br>
-
-Total Copies
-
-<h2
-th:text="${book.bookCount}">
-0
-</h2>
-
+<div>Total Copies</div>
+<h2 th:text="${book.bookCount}">0</h2>
 </div>
-
 <div class="badge available">
-
-✅<br>
-
-Available
-
-<h2
-th:text="${book.availableBookCount}">
-0
-</h2>
-
+<div>Available</div>
+<h2 th:text="${book.availableBookCount}">0</h2>
+</div>
 </div>
 
-</div>
-
-<div
-
-th:class="${book.availableBookCount>0}
-?'status available-status'
-:'status not-available-status'">
-
-<span
-
-th:text="${book.availableBookCount>0}
-?'🟢 AVAILABLE'
-:'🔴 NOT AVAILABLE'">
-
-</span>
-
+<div th:class="${book.availableBookCount>0}?'status available-status':'status not-available-status'">
+<span th:text="${book.availableBookCount>0}?'🟢 AVAILABLE':'🔴 NOT AVAILABLE'"></span>
 </div>
 
 <div class="desc">
-
-<b>Description</b>
-
-<br><br>
-
-<span
-th:text="${book.description}">
-</span>
-
+<b>Description</b><br><br>
+<span th:text="${book.description}"></span>
 </div>
 
 <div class="actions">
-
-<a
-class="edit"
-th:href="@{/books/edit/{id}(id=${book.bookId})}">
-
-✏ Edit
-
-</a>
-
-<a
-class="delete"
-th:href="@{/books/delete/{id}(id=${book.bookId})}"
-onclick="return confirm('Delete this book?')">
-
-🗑 Delete
-
-</a>
-
+<a class="edit" th:href="@{/books/edit/{id}(id=${book.bookId})}">✏ Edit</a>
+<a class="delete" th:href="@{/books/delete/{id}(id=${book.bookId})}" onclick="return confirm('Delete this book?')">🗑 Delete</a>
 </div>
 
 </div>
@@ -445,16 +95,8 @@ onclick="return confirm('Delete this book?')">
 </div>
 
 <div class="footer">
-
-<a
-th:href="@{/dashboard}">
-
-⬅ Back to Dashboard
-
-</a>
-
+<a th:href="@{/dashboard}">⬅ Back to Dashboard</a>
 </div>
 
 </body>
-
 </html>

@@ -51,4 +51,9 @@ public class BookService {
 		return br.findById(id).get();
 	}
 	
+	
+	public Book updateBookCount(Book book) {
+		return br.save(book);
+	}
+	
 }

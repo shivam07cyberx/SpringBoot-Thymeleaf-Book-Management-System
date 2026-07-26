@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Borrowed Books</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+body{background:#eef2f7}
+.container{width:95%;max-width:1300px;margin:30px auto}
+.header{background:#1e293b;color:#fff;padding:20px 30px;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:30px}
+.back{background:#2563eb;color:#fff;text-decoration:none;padding:10px 20px;border-radius:8px;font-weight:bold}
+.back:hover{background:#1d4ed8}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin:25px 0}
+.card{background:#fff;border-radius:12px;padding:20px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,.12)}
+.card h3{color:#475569;margin-bottom:10px}
+.card p{font-size:28px;font-weight:bold;color:#1e3a8a}
+table{width:100%;background:#fff;border-collapse:collapse;border-radius:12px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.12)}
+thead{background:#1e3a8a;color:#fff}
+th,td{padding:14px;text-align:center}
+tbody tr:nth-child(even){background:#f8fafc}
+tbody tr:hover{background:#eef6ff}
+.status{padding:6px 14px;border-radius:20px;color:#fff;font-weight:bold}
+.issued{background:#2563eb}
+.returned{background:#16a34a}
+.overdue{background:#dc2626}
+.note{margin-top:25px;background:#fff3cd;color:#7c5700;padding:18px;border-left:6px solid #f59e0b;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.08)}
+.empty{text-align:center;color:#dc2626;font-weight:bold}
+.footer{text-align:center;color:#64748b;margin:30px 0}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+<div>
+<h1>📚 My Borrowed Books</h1>
+<p>View your issued books and fines.</p>
+</div>
+
+<a th:href="@{/dashboard}" class="back">🏠 Dashboard</a>
+</div>
+
+<div class="stats">
+
+<div class="card">
+<h3>👤 User</h3>
+<p th:text="${user.username}">User</p>
+</div>
+
+<div class="card">
+<h3>📖 Total Borrowed</h3>
+<p th:text="${totalBorrowedBooks}">0</p>
+</div>
+
+<div class="card">
+<h3>💰 Total Fine</h3>
+<p>₹ <span th:text="${totalFine}">0</span></p>
+</div>
+
+<div class="card">
+<h3>📅 Today</h3>
+<p th:text="${#temporals.format(#temporals.createNow(),'dd MMM yyyy')}">26 Jul 2026</p>
+</div>
+
+</div>
+
+<table>
+
+<thead>
+<tr>
+<th>Book Name</th>
+<th>Borrow Date</th>
+<th>Due Date</th>
+<th>Return Date</th>
+<th>Status</th>
+<th>Fine</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr th:each="issue : ${borrowedBooks}">
+
+<td th:text="${issue.book.bookname}">Java</td>
+
+<td th:text="${issue.borrowDate}"></td>
+
+<td th:text="${issue.dueDate}"></td>
+
+<td>
+<span th:if="${issue.returnDate!=null}" th:text="${issue.returnDate}"></span>
+<span th:unless="${issue.returnDate!=null}">—</span>
+</td>
+
+<td>
+
+<span class="status issued"
+      th:if="${issue.status=='issued'}">Issued</span>
+
+<span class="status returned"
+      th:if="${issue.status=='returned'}">Returned</span>
+
+<span class="status overdue"
+      th:if="${issue.status=='overdue'}">Overdue</span>
+
+</td>
+
+<td>₹ <span th:text="${issue.fine}">0</span></td>
+
+</tr>
+
+<tr th:if="${#lists.isEmpty(borrowedBooks)}">
+<td colspan="6" class="empty">No Borrowed Books Found</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="note">
+<h3>📌 Library Notice</h3>
+<ul style="margin:10px 0 0 20px;line-height:1.8">
+<li>Books can only be returned by the library administrator.</li>
+<li>Fine is maintained by the administrator.</li>
+<li>Please return books before the due date to avoid penalties.</li>
+<li>If you have any issue regarding your borrowed books, contact the administrator.</li>
+</ul>
+</div>
+
+<div class="footer">
+© 2026 Library Management System
+</div>
+
+</div>
+
+</body>
+</html>

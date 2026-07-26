@@ -183,6 +183,29 @@ tr:hover{
     color:#777;
 }
 
+
+
+
+/* back button */
+
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 24px;
+    background:orange;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
 </style>
 
 </head>
@@ -190,11 +213,22 @@ tr:hover{
 
 <div class="header">
 
-    <h1>📚 Library Dashboard</h1>
+    <div class="logo">
+        <h1>📚 Library Management System</h1>
+        <p>Borrow • Manage • Learn</p>
+    </div>
 
-    <div>
-        Welcome,
-        <b th:text="${user.username}">User</b>
+    <div class="header-right">
+
+        <div class="user-info">
+            👤 Welcome,
+            <strong th:text="${user.username}">User</strong>
+        </div>
+
+        <a th:href="@{/dashboard}" class="back-btn">
+            🏠 Dashboard
+        </a>
+
     </div>
 
 </div>
@@ -341,6 +375,8 @@ tr:hover{
         </tbody>
 
     </table>
+    
+
 
     <div class="footer">
 
